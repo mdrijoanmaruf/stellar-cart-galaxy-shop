@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Search, Menu, LogOut } from 'lucide-react';
+import { ShoppingCart, User, Search, Menu, LogOut, Settings } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
@@ -122,6 +123,16 @@ const Navbar = () => {
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     Orders
                   </DropdownMenuItem>
+                  {currentUser.email === 'rijoanmaruf@gmail.com' && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={() => navigate('/admin')}>
+                        <Settings className="mr-2 h-4 w-4" />
+                        Admin Dashboard
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Logout
@@ -162,6 +173,11 @@ const Navbar = () => {
                   </form>
                   <div className="flex flex-col space-y-4">
                     <NavLinks />
+                    {currentUser?.email === 'rijoanmaruf@gmail.com' && (
+                      <Link to="/admin" className="text-gray-700 hover:text-primary transition-colors">
+                        Admin Dashboard
+                      </Link>
+                    )}
                   </div>
                 </div>
               </SheetContent>
